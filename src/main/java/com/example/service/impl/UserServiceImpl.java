@@ -15,7 +15,6 @@ public class UserServiceImpl implements UserService {
     public User register(User user) {
         if(userMapper.selectUserByEmail(user.getEmail()) == null){
             userMapper.register(user);
-            System.out.println(userMapper.selectUserById(user.getUserId()));
             return userMapper.selectUserById(user.getUserId());
         }else{
             return null;
