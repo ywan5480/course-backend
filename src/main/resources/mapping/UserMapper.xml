@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.entity.User">
+        <result column="user_id" jdbcType="INTEGER" property="userId" />
+        <result column="user_name" jdbcType="VARCHAR" property="userName" />
+        <result column="user_password" jdbcType="VARCHAR" property="passWord" />
+        <result column="photo" jdbcType="VARCHAR" property="photo" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="user_type" jdbcType="CHAR" property="userType" />
+    </resultMap>
+    <sql id="BaseColumnList" >
+        user_id, user_name, user_password, photo, email, user_type
+    </sql>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select * from user;
+    </select>
+
+    <select id="selectUserByEmail" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select * from user where email = #{email};
+    </select>
+
+    <insert id="register" parameterType="com.example.entity.User" useGeneratedKeys="true" keyProperty="userId">
+        insert into user (user_name, user_password, email, user_type)
+        values (#{userName}, #{passWord}, #{email}, #{userType})
+    </insert>
+
+    <select id="selectUserById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select * from user where user_id = #{id};
+    </select>
+</mapper>
